@@ -13,17 +13,21 @@
     <table class="table">
         <thead>
         <tr>
+            <th scope="col">ID</th>
             <th scope="col">Name</th>
+            <th scope="col">Type</th>
             <th scope="col">Price</th>
-            <th scope="col">Description</th>
+            <th scope="col">Quantity</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($data as $d)
+        @foreach($product_item as $p)
             <tr>
-                <td>{{$d[0]}}</td>
-                <td>{{$d[1]}}</td>
-                <td>{{$d[2]}}</td>
+                <td>{{$p->id}}</td>
+                <td>{{$p->name}}</td>
+                <td>{{$p->type}}</td>
+                <td>{{$p->price}}</td>
+                <td>{{$p->quantity}}</td>
             </tr>
         @endforeach
         </tbody>
