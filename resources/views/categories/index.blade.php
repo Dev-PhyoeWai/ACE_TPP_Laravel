@@ -14,17 +14,15 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
         </tr>
         </thead>
         <tbody>
         @foreach($data as $d)
             <tr>
-                <td>{{$d[0]}}</td>
-                <td>{{$d[1]}}</td>
-                <td>{{$d[2]}}</td>
+                <td>{{$d->id}}</td>
+                <td>{{$d->name}}</td>
             </tr>
         @endforeach
         </tbody>
