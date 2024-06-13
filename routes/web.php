@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -29,5 +30,10 @@ Route::post('/product/store', [ProductController::class,'store'])->name('product
 
 Route::get('/product/{id}', [ProductController::class,'edit'])->name('productEdit');
 Route::post('/product/update/{id}', [ProductController::class,'update'])->name('productUpdate');
+
+Route::post('/category/{deldata}', [CategoryController::class,'destroy'])->name('categoryDelete');
+Route::post('/product/{productdel}', [ProductController::class,'destroy'])->name('productDelete');
+
+//Route::resource('articles', ArticleController::class);
 
 

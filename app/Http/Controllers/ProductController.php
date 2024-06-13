@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Faker\Provider\Lorem;
 use Illuminate\Http\Request;
@@ -47,7 +48,10 @@ class ProductController extends Controller
         ]);
         return redirect()->route('productIndex');
     }
-
+    public function destroy(Product $productdel){
+        $productdel->delete();
+        return redirect()->route('productIndex');
+    }
 
 }
 

@@ -35,7 +35,10 @@
             <td>{{$p->quantity}}</td>
             <td>
                 <a href="{{route('productEdit', ['id'=>$p->id])}}">Edit</a> |
-                <a href="">Delete</a>
+                <form action="{{route('productDelete', $p->id)}}" method="post">
+                    @csrf
+                    <button>Delete</button>
+                </form>
             </td>
         </tr>
 
