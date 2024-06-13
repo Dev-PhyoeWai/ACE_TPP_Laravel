@@ -8,30 +8,38 @@ class CategoryController extends Controller
 {
     public function index(){
 
-//        $data = [
-//            [
-//                'Phyoe',
-//                'Wai',
-//                20,
-//            ],
-//            [
-//                'Aung',
-//                'Aung',
-//                24,
-//            ],
-//            [
-//                'Ma',
-//                'Mya',
-//                21,
-//            ]
-//        ];
-//        dd($data);
-
         $data = Category::all();
-        return view('categories.index', compact('data'));
+//        return view('categories.index', compact('data'));
+        return view( 'categories.index', compact('data'));
     }
     public function result(){
         return view('categories.result');
+    }
+
+    public function create(){
+        return view('categories.create');
+    }
+
+    public function store(Request $request){
+//        $data = $request->all();
+//        dd($data);
+        Category::create([
+            "name" => $request->name,
+        ]);
+        return redirect()->route('categoryIndex');
+    }
+
+    public function edit($id){
+        $data = Category::where('id', $id)->first();
+        return view('categories.edit', compact('data'));
+    }
+
+    public function update(Request $request,$id){
+        $data = Category::where('id', $id)->first();
+        $data->update([
+            'name' => $request->input('name'),
+        ]);
+        return redirect()->route('categoryIndex');
     }
 
 }

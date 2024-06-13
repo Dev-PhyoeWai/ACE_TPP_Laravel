@@ -10,12 +10,15 @@
 </head>
 <body>
     <h1>Hello Category</h1>
+    <a href="{{route('categoryCreate')}}">Create</a>
+    <hr/>
 {{--    @dd($data);--}}
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +26,10 @@
             <tr>
                 <td>{{$d->id}}</td>
                 <td>{{$d->name}}</td>
+                <td>
+                    <a href="{{route('categoryEdit', ['id'=>$d->id])}}">Edit</a> |
+                    <a href="">Delete</a>
+                </td>
             </tr>
         @endforeach
         </tbody>
