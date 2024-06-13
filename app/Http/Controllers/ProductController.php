@@ -23,11 +23,11 @@ class ProductController extends Controller
 //        $data = $request->all();
 //        dd($data);
         Product::create([
-            "name" => $request->name,
-            "type" => $request->type,
-            "image" => $request->image,
-            "price" => $request->price,
-            "quantity" => $request->quantity,
+            'name' => $request->name,
+            'type' => $request->type,
+            'image' => $request->image,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
         ]);
         return redirect()->route('productIndex');
     }

@@ -2,63 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $article = Article::all();
+        return view('articles.index', compact('article'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('articles.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        Article::create([
+            'name' => $request->name,
+            'age' => $request->age,
+            'city' => $request->city,
+        ]);
+        return redirect()->route('articles.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+    public function edit($id){
+        $data = Article::where('id', $id)->first();
+        return view('articles.edit', compact('data'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+    public function update(Request $request,$id){
+        ## call null value
+        ## $data = Article::where('id', $request->id)->first();
+        /*
+         *      Error handling
+         */
+        $data = Article::findOrFail($id);
+        $data->update([
+            'name' => $request->name,
+            'age' => $request->age,
+            'city' => $request->city,
+        ]);
+        return redirect()->route('articles.index')->with('success', 'Post updated successfully.');
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Article $article)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $article->delete();
+        return redirect()->route('articles.index')->with('success', 'Post deleted successfully.');
     }
 }
