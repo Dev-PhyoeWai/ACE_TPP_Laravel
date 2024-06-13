@@ -13,7 +13,7 @@
 <div class="container">
     <form action="{{ route('articles.update', $data->id) }}" method="POST">
         @csrf
-        {{--    @method('love_mama')    --}}
+        {{--    @method('dev_phyoewai')    --}}
         @method('PUT')
         <div class="row">
             <div class="col">

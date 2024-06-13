@@ -32,13 +32,15 @@
                 <td>{{$a->age}}</td>
                 <td>{{$a->city}}</td>
                 <td>
+                    {{--    @method('dev_phyoewai')    --}}
                     @csrf
                     @method('PATCH')
                     <a href="{{ route('articles.edit', $a->id) }}">Edit</a> |
                     <form action="{{ route('articles.destroy', $a->id) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button>Delete</button>
+                    {{--    @method('dev_phyoewai')    --}}
+                    @csrf
+                    @method('DELETE')
+                    <button>Delete</button>
                     </form>
                 </td>
             </tr>
