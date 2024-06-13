@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Hello Category</h1>
+    <h1>Category Details</h1>
     <a href="{{route('categoryCreate')}}">Create</a>
     <hr/>
 {{--    @dd($data);--}}
