@@ -24,7 +24,7 @@ class CategoryController extends Controller
 //        $data = $request->all();
 //        dd($data);
         Category::create([
-            "name" => $request->name,
+            'name' => $request->name,
         ]);
         return redirect()->route('categoryIndex');
     }
@@ -34,10 +34,10 @@ class CategoryController extends Controller
         return view('categories.edit', compact('data'));
     }
 
-    public function update(Request $request,$id){
-        $data = Category::where('id', $id)->first();
+    public function update(Request $request){
+        $data = Category::where('id', $request->id)->first();
         $data->update([
-            'name' => $request->input('name'),
+            'name' => $request->name,
         ]);
         return redirect()->route('categoryIndex');
     }

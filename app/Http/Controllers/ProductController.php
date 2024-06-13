@@ -36,14 +36,14 @@ class ProductController extends Controller
         return view('product.edit', compact('data'));
     }
 
-    public function update(Request $request,$id){
-        $data = Product::where('id', $id)->first();
+    public function update(Request $request){
+        $data = Product::where('id', $request->id)->first();
         $data->update([
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
-            'image' => $request->input('image'),
-            'price' => $request->input('price'),
-            'quantity' => $request->input('quantity'),
+            'name' => $request->name,
+            'type' => $request->type,
+            'image' => $request->image,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
         ]);
         return redirect()->route('productIndex');
     }
