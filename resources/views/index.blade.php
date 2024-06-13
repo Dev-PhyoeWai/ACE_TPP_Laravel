@@ -9,5 +9,8 @@
 </head>
 <body>
     <h1>Hello Laravel</h1>
+    <a href="{{route('categoryIndex')}}">Category</a><br>
+    <a href="{{route('productIndex')}}">Product</a><br>
+    <a href="{{route('productIndex')}}">Article</a>
 </body>
 </html>

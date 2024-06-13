@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -16,12 +17,23 @@ Route::get('/startup', function () {
 
 Route::get('category', [CategoryController::class,'index'])->name('categoryIndex');
 //Route::get('result', [CategoryController::class,'result']);
-Route::get('product', [ProductController::class,'index']);
+Route::get('product', [ProductController::class,'index'])->name('productIndex');
 
 Route::get('/category/create', [CategoryController::class,'create'])->name('categoryCreate');
 Route::post('/category/store', [CategoryController::class,'store'])->name('categoryStore');
 
 Route::get('/category/{id}', [CategoryController::class,'edit'])->name('categoryEdit');
-Route::post('/category/update{id}', [CategoryController::class,'update'])->name('categoryUpdate');
+Route::post('/category/update/{id}', [CategoryController::class,'update'])->name('categoryUpdate');
+
+Route::get('/product/create', [ProductController::class,'create'])->name('productCreate');
+Route::post('/product/store', [ProductController::class,'store'])->name('productStore');
+
+Route::get('/product/{id}', [ProductController::class,'edit'])->name('productEdit');
+Route::post('/product/update/{id}', [ProductController::class,'update'])->name('productUpdate');
+
+Route::post('/category/{deldata}', [CategoryController::class,'destroy'])->name('categoryDelete');
+Route::post('/product/{productdel}', [ProductController::class,'destroy'])->name('productDelete');
+
+//Route::resource('articles', ArticleController::class);
 
 
