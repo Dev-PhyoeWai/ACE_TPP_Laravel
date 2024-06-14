@@ -11,7 +11,7 @@
     <h1>Create Category</h1>
     <form method="post" action="{{route('categoryStore')}}">
         @csrf
-        <input type="text" name="name" id=""/>
+        <input type="text" name="name" id="" placeholder="create new category"/>
         <button type="submit">Create</button>
     </form>
 </body>

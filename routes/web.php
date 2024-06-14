@@ -34,6 +34,18 @@ Route::post('/product/update/{id}', [ProductController::class,'update'])->name('
 Route::post('/category/{deldata}', [CategoryController::class,'destroy'])->name('categoryDelete');
 Route::post('/product/{productdel}', [ProductController::class,'destroy'])->name('productDelete');
 
-//Route::resource('articles', ArticleController::class);
+Route::resource('articles', ArticleController::class);
 
+//Route::resource('articles', ArticleController::class)->only(
+//    'edit'
+//);
+//Route::resource('articles', ArticleController::class)->only([
+//    'destroy'
+//]);
+//Route::resource('articles', ArticleController::class)->only([
+//    'update'
+//]);
+//Route::resource('articles', ArticleController::class)->only('create')->names([
+//    'create' => 'articlesCreate',
+//]);
 
