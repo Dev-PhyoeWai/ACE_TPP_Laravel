@@ -20,15 +20,27 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-//        $data = $request->all();
-//        dd($data);
-        Product::create([
-            'name' => $request->name,
-            'type' => $request->type,
-            'image' => $request->image,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-        ]);
+             ## dev_phyoewai
+            if($request->file('image')){
+                $file = $request->file('image');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move('uploads/', $filename);
+
+                Product::create([
+                    'name' => $request->name,
+                    'type' => $request->type,
+                    'image' => $filename,
+                    'price' => $request->price,
+                    'quantity' => $request->quantity,
+                ]);
+            }else{
+                Product::create([
+                    'name' => $request->name,
+                    'type' => $request->type,
+                    'price' => $request->price,
+                    'quantity' => $request->quantity,
+                ]);
+            }
         return redirect()->route('productIndex');
     }
 

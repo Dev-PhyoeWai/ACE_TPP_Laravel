@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Product Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('/css/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 <body>
@@ -39,7 +39,8 @@
                 <td>{{$p->id}}</td>
                 <td>{{$p->name}}</td>
                 <td>{{$p->type}}</td>
-                <td>{{$p->image}}</td>
+                <td><img src="{{asset('uploads/'.$p->image)}}" width="100px" height="60px"></td>
+    {{--     <td><img src="{{asset('uploads'.'/'.$p->image)}}" width="100px" height="60px"></td>    --}}
                 <td>{{$p->price}}</td>
                 <td>{{$p->quantity}}</td>
                 <td>
@@ -50,12 +51,10 @@
                             </button>
                         </div>
                         <div class="col-4">
-                            <button>
                                 <form action="{{route('productDelete', $p->id)}}" method="post">
                                     @csrf
                                     <button class="btn btn-sm btn-danger">Delete</button>
                                 </form>
-                            </button>
                         </div>
                     </div>
                 </td>
@@ -64,9 +63,8 @@
         </tbody>
     </table>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+<script src="{{asset('/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('/js/popper.min.js')}}"></script>
+<script src="{{asset('/js/bootstrap.min.js')}}"></script>
 </body>
 </html>
