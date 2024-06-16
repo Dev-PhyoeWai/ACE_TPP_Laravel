@@ -5,13 +5,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create Category</title>
+    <title>Create Product</title>
     <link rel="stylesheet" href="{{asset('/css/bootstrap.min.css')}}" />
 </head>
 <body>
 <h1>Create Product</h1>
 <div class="container">
-<form method="post" action="{{route('productStore')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('productStore')}}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="productName">Name</label>
@@ -22,8 +22,9 @@
             <input type="text" name="type" class="form-control" id="productType" placeholder="Type">
         </div>
         <div class="form-group">
-            <label for="productImage">Image</label>
-            <input type="file" name="image" class="form-control-file" id="productImage">
+            <label for="productImages">Images</label>
+            {{--   FeatureDay05 dev_phyoewai  --}}
+            <input type="file" name="images[]" class="form-control-file" id="productImages" multiple>
         </div>
         <div class="form-group">
             <label for="productPrice">Price</label>
@@ -34,7 +35,7 @@
             <input type="number" name="quantity" class="form-control" id="productQuantity" placeholder="Quantity">
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
-</form>
+    </form>
 </div>
 <script src="{{asset('/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/popper.min.js')}}"></script>

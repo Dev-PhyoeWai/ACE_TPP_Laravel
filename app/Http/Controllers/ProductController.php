@@ -2,68 +2,108 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
-use Faker\Provider\Lorem;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
-
 class ProductController extends Controller
 {
-    public function index(){
-
-        $product_item = Product::all();
+    public function index()
+    {
+        $product_item = Product::with('images')->get();
         return view('product.index', compact('product_item'));
     }
-
-    public function create(){
+    public function create()
+    {
         return view('product.create');
     }
 
-    public function store(Request $request){
-             ## dev_phyoewai
-            if($request->file('image')){
-                $file = $request->file('image');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $file->move('uploads/', $filename);
+    ##-> FeatureDay05 dev_phyoewai
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
 
-                Product::create([
-                    'name' => $request->name,
-                    'type' => $request->type,
-                    'image' => $filename,
-                    'price' => $request->price,
-                    'quantity' => $request->quantity,
-                ]);
-            }else{
-                Product::create([
-                    'name' => $request->name,
-                    'type' => $request->type,
-                    'price' => $request->price,
-                    'quantity' => $request->quantity,
+        $product = Product::create($request->only('name', 'type', 'price', 'quantity'));
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $path = $image->move(public_path('uploads'), $filename);
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $filename,
                 ]);
             }
+        }
+
         return redirect()->route('productIndex');
     }
 
-    public function edit($id){
-        $data = Product::where('id', $id)->first();
+    ##-> FeatureDay05 dev_phyoewai
+    public function edit($id)
+    {
+        $data = Product::with('images')->find($id);
+
+        if (!$data) {
+            return redirect()->route('productIndex')->withErrors('Product not found.');
+        }
+
         return view('product.edit', compact('data'));
     }
 
-    public function update(Request $request){
-        $data = Product::where('id', $request->id)->first();
-        $data->update([
-            'name' => $request->name,
-            'type' => $request->type,
-            'image' => $request->image,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
+    ##-> FeatureDay05 dev_phyoewai
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
+        $product = Product::findOrFail($id);
+        $product->update($request->only('name', 'type', 'price', 'quantity'));
+
+        if ($request->hasFile('images')) {
+            foreach ($product->images as $image) {
+                $imagePath = public_path($image->image_path);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+                $image->delete();
+            }
+
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $path = $image->move(public_path('uploads'), $filename);
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_path' => $filename,
+                ]);
+            }
+        }
+
         return redirect()->route('productIndex');
     }
-    public function destroy(Product $productdel){
+
+    ##-> FeatureDay05 dev_phyoewai
+    public function destroy(Product $productdel)
+    {
+        foreach ($productdel->images as $image) {
+            $imagePath = public_path($image->image_path);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $image->delete();
+        }
+
         $productdel->delete();
         return redirect()->route('productIndex');
     }
-
 }
-

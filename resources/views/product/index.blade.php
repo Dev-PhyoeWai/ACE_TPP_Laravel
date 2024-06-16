@@ -11,23 +11,23 @@
 </head>
 <body>
 <div class="container">
-    <h1>Products Details</h1>
+    <h1 class="text-center mt-4 mb-4">Products Details</h1>
     <div class="row">
         <div class="col-6">
-            <a class="fa-regular fa-circle-left danger" href="{{url('/')}}"></a>
+            <a href="{{url('/')}}"><i class="fa-solid fa-house fa-xl"></i></a>
         </div>
-        <div class="col-6 flex-end">
-            <a href="{{route('productCreate')}}" class="product_create">Create</a>
+        <div class="col-6 text-end">
+            <a href="{{route('productCreate')}}" class="btn btn-sm btn-info text-white">Create</a>
         </div>
     </div>
-    <hr/>
+
     <table class="table">
         <thead>
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Type</th>
-            <th scope="col">Image</th>
+            <th scope="col">Images</th>
             <th scope="col">Price</th>
             <th scope="col">Quantity</th>
             <th>Action</th>
@@ -39,22 +39,25 @@
                 <td>{{$p->id}}</td>
                 <td>{{$p->name}}</td>
                 <td>{{$p->type}}</td>
-                <td><img src="{{asset('uploads/'.$p->image)}}" width="100px" height="60px"></td>
-    {{--     <td><img src="{{asset('uploads'.'/'.$p->image)}}" width="100px" height="60px"></td>    --}}
+                <td>
+                    @foreach($p->images as $image)
+                        <img src="{{ asset($image->image_path) }}" width="40px" height="20px" class="img-thumbnail mb-1">
+                    @endforeach
+                </td>
                 <td>{{$p->price}}</td>
                 <td>{{$p->quantity}}</td>
                 <td>
                     <div class="row">
-                        <div class="col-2">
-                            <button class="btn btn-sm btn-warning">
-                                <a href="{{route('productEdit', ['id'=>$p->id])}}">Edit</a>
-                            </button>
+                        <div class="col-6">
+                            <a href="{{route('productEdit', ['id' => $p->id])}}" class="btn btn-sm btn-warning text-white">Edit</a>
                         </div>
-                        <div class="col-4">
-                                <form action="{{route('productDelete', $p->id)}}" method="post">
-                                    @csrf
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                </form>
+                        <div class="col-6">
+                            <form action="{{route('productDelete', $p->id)}}" method="post">
+                                @csrf
+                                {{--    FeatureDay05 dev_phyoewai--}}
+{{--                                @method('DELETE')--}}
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </td>
