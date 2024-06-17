@@ -6,23 +6,23 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Category</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('/css/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 <body>
 <div class="container">
-    <h1>Category Details</h1>
-    <div class="row">
+    <h1 class="text-center mt-4 mb-4">Category Details</h1>
+    <div class="row mb-4">
         <div class="col-6">
-            <a class="fa-regular fa-circle-left danger" href="{{url('/')}}"></a>
+            <a href="{{url('/')}}"><i class="fa-solid fa-house fa-xl"></i></a>
         </div>
-        <div class="col-6 flex-end">
-            <a href="{{route('categoryCreate')}}" class="category_create">Create</a>
+        <div class="col-6 text-end">
+            <a href="{{route('categoryCreate')}}" class="btn btn-sm btn-info text-white">Create</a>
         </div>
     </div>
-    <hr/>
+
     {{--    @dd($data);--}}
-    <table class="table table-bordered">
+    <table class="table table-bordered text-center">
         <thead>
         <tr>
             <th scope="col">ID</th>
@@ -37,11 +37,10 @@
                 <td>{{$d->name}}</td>
                 <td>
 
-                    <div class="row">
+                    <div class="row d-flex justify-content-center">
                         <div class="col-2">
-                            <button class="btn btn-sm btn-warning">
-                                <a href="{{route('categoryEdit', ['id'=>$d->id])}}">Edit</a>
-                            </button>
+                            <a href="{{route('categoryEdit', ['id'=>$d->id])}}" class="btn btn-sm btn-warning text-white">
+                               Edit</a>
                         </div>
                         <div class="col-4">
                             <form action="{{route('categoryDelete', $d->id)}}" method="post">
@@ -59,8 +58,8 @@
     </table>
 </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+<script src="{{asset('/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('/js/popper.min.js')}}"></script>
+<script src="{{asset('/js/bootstrap.min.js')}}"></script>
 </body>
 </html>
