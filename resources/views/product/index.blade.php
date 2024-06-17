@@ -41,7 +41,7 @@
                 <td>{{$p->type}}</td>
                 <td>
                     @foreach($p->images as $image)
-                        <img src="{{ asset($image->image_path) }}" width="40px" height="20px" class="img-thumbnail mb-1">
+                        <img src="{{asset('uploads/'.$image->image_path)}}" width="40px" height="20px" class="img-thumbnail mb-1">
                     @endforeach
                 </td>
                 <td>{{$p->price}}</td>
