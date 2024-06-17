@@ -68,7 +68,9 @@ class ProductController extends Controller
         ]);
 
         $product = Product::findOrFail($id);
-        $product->update($request->only('name', 'type', 'price', 'quantity'));
+//        $product->update($request->only('name', 'type', 'price', 'quantity'));
+        $product->update($request->all());
+//        $product->update($request->validated());
 
         if ($request->hasFile('images')) {
             foreach ($product->images as $image) {
