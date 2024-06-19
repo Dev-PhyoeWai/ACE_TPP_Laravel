@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -18,17 +19,11 @@ class ProductController extends Controller
     }
 
     ##-> FeatureDay05 dev_phyoewai
-    public function store(Request $request)
+    public function store(ProductRequest $request) // ProductRequest $request
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'quantity' => 'required|integer',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
 
-        $product = Product::create($request->only('name', 'type', 'price', 'quantity'));
+//      $product = Product::create($request->only('name', 'type', 'price', 'quantity'));
+        $product = Product::create($request->all());
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -59,16 +54,9 @@ class ProductController extends Controller
     ##-> FeatureDay05 dev_phyoewai
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'quantity' => 'required|integer',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-
         $product = Product::findOrFail($id);
-        $product->update($request->only('name', 'type', 'price', 'quantity'));
+//        $product->update($request->only('name', 'type', 'price', 'quantity'));
+        $product->update($request->all());
 
         if ($request->hasFile('images')) {
             foreach ($product->images as $image) {
