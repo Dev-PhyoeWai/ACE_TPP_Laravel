@@ -8,6 +8,10 @@ use App\Models\ProductImage;
 use Illuminate\Http\Request;
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $product_item = Product::with('images')->get();

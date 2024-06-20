@@ -16,8 +16,8 @@ class AdminUserSeeder extends Seeder
             ['email' => 'admin@aceplus.com'], // Assuming email is unique
             [
                 'name' => 'Admin User',
-                'password' => Hash::make('ace@admin123'), // Replace with a secure password
-                'is_admin' => true, // Assuming you have an is_admin field
+                'password' => Hash::make('ace@admin123'),
+                'is_admin' => true, // Assuming have an is_admin field
             ]
         );
     }

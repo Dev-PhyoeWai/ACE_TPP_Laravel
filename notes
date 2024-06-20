@@ -71,4 +71,12 @@ class DatabaseSeeder extends Seeder
           ]
       );
 
+***************************************************************************
+
+ create 3 tables => user -> role -> role_user
+
+1 => php artisan make:model Role -m
+2 =>  php artisan make:seeder RoleSeeder
+
+
 
