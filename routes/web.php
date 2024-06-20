@@ -15,7 +15,6 @@ Route::get('/', function () {
 //});
 
 Route::get('category', [CategoryController::class,'index'])->name('categoryIndex');
-//Route::get('result', [CategoryController::class,'result']);
 Route::get('product', [ProductController::class,'index'])->name('productIndex');
 
 Route::get('/category/create', [CategoryController::class,'create'])->name('categoryCreate');
@@ -33,7 +32,7 @@ Route::post('/product/update/{id}', [ProductController::class,'update'])->name('
 Route::post('/category/{deldata}', [CategoryController::class,'destroy'])->name('categoryDelete');
 Route::post('/product/{productdel}', [ProductController::class,'destroy'])->name('productDelete');
 
-Route::resource('articles', ArticleController::class)->middleware('auth');
+Route::resource('articles', ArticleController::class);
 
 Auth::routes();
 

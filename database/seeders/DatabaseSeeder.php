@@ -11,7 +11,10 @@ class DatabaseSeeder extends Seeder
         # Category::factory(20)->create();
 
         $this->call([
-            AdminUserSeeder::class,
+//            AdminUserSeeder::class,
+            PermissionTableSeeder::class,
+            RoleTableSeeder::class,
+            RolePermissionTableSeeder::class,
         ]);
     }
 }

@@ -4,18 +4,16 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
-class RoleSeeder extends Seeder
+class RoleTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        // insert admin name for role
-        DB::table('roles')->insert([
-           'name' => 'Admin',
-        ]);
+        Role::create(['name' => 'admin']);
+        Role::create(['name' => 'editor']);
     }
 }
