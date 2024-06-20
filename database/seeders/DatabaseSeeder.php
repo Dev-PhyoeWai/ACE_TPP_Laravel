@@ -8,7 +8,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        ## Check -> CategoryFactory
-        Category::factory(20)->create(); ## count -> 100
+        # Category::factory(20)->create();
+
+        $this->call([
+//            AdminUserSeeder::class,
+            PermissionTableSeeder::class,
+            RoleTableSeeder::class,
+            RolePermissionTableSeeder::class,
+        ]);
     }
 }

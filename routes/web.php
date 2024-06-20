@@ -8,15 +8,13 @@ use Illuminate\Support\Facades\Route;
 
 // -----------------------------------------
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
-
-Route::get('/startup', function () {
-    return 'Hello startup';
-});
+//Route::get('/', function () {
+//    return view('index');
+//});
 
 Route::get('category', [CategoryController::class,'index'])->name('categoryIndex');
-//Route::get('result', [CategoryController::class,'result']);
 Route::get('product', [ProductController::class,'index'])->name('productIndex');
 
 Route::get('/category/create', [CategoryController::class,'create'])->name('categoryCreate');
@@ -36,16 +34,6 @@ Route::post('/product/{productdel}', [ProductController::class,'destroy'])->name
 
 Route::resource('articles', ArticleController::class);
 
-//Route::resource('articles', ArticleController::class)->only(
-//    'edit'
-//);
-//Route::resource('articles', ArticleController::class)->only([
-//    'destroy'
-//]);
-//Route::resource('articles', ArticleController::class)->only([
-//    'update'
-//]);
-//Route::resource('articles', ArticleController::class)->only('create')->names([
-//    'create' => 'articlesCreate',
-//]);
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
