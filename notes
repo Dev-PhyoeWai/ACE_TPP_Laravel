@@ -79,4 +79,12 @@ class DatabaseSeeder extends Seeder
 2 =>  php artisan make:seeder RoleSeeder
 
 
+------------------------------------------------------------------------------------------------
+1 => create permission controller
+2 => create crud function
+3 => route
+
+4 => folder role-permission/permission/index.blade.php
+
+
 

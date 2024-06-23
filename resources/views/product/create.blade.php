@@ -27,8 +27,8 @@
                 <label for="productImages">Images</label>
                 {{--   FeatureDay05 dev_phyoewai  --}}
                 <input type="file" name="images[]" class="form-control-file" id="productImages" multiple>
-                @error('image')
-                <span class="text-danger">* Please enter product image!</span>
+                @error('images')
+                <span class="text-danger">* Image Error!</span>
                 @enderror
             </div>
             <div class="form-group mb-4">

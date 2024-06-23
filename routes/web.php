@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 // '/' => home
 
@@ -10,9 +12,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-//Route::get('/', function () {
-//    return view('index');
-//});
 
 Route::get('category', [CategoryController::class,'index'])->name('categoryIndex');
 Route::get('product', [ProductController::class,'index'])->name('productIndex');
@@ -37,3 +36,14 @@ Route::resource('articles', ArticleController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/list',fn()=>view('list'))->name('list');
+
+// new route for role / permission dynamically crud
+Route::resource('permissions', PermissionController::class);
+Route::resource('roles', RoleController::class);
+Route::get('permissions/{permissionId}/delete', [PermissionController::class,'destroy']);
+Route::get('roles/{roleId}/delete', [RoleController::class,'destroy']);
+
+Route::get('roles/{roleId}/give-permissions', [RoleController::class,'addPermissionToRole']);
+Route::put('roles/{roleId}/give-permissions', [RoleController::class,'givePermissionToRole']);

@@ -22,11 +22,8 @@ class ProductController extends Controller
         return view('product.create');
     }
 
-    ##-> FeatureDay05 dev_phyoewai
     public function store(ProductRequest $request) // ProductRequest $request
     {
-
-//      $product = Product::create($request->only('name', 'type', 'price', 'quantity'));
         $product = Product::create($request->all());
 
         if ($request->hasFile('images')) {
@@ -42,8 +39,6 @@ class ProductController extends Controller
 
         return redirect()->route('productIndex');
     }
-
-    ##-> FeatureDay05 dev_phyoewai
     public function edit($id)
     {
         $data = Product::with('images')->find($id);
@@ -55,11 +50,9 @@ class ProductController extends Controller
         return view('product.edit', compact('data'));
     }
 
-    ##-> FeatureDay05 dev_phyoewai
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-//        $product->update($request->only('name', 'type', 'price', 'quantity'));
         $product->update($request->all());
 
         if ($request->hasFile('images')) {
