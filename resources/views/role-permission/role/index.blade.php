@@ -31,6 +31,19 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    <script>
+        function toggleForm() {
+            var x = document.getElementById("myDiv");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+
+                x.style.display = "none";
+            }
+        }
+
+    </script>
 </head>
 
 <body>
@@ -250,9 +263,24 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Roles
-                                <a href="{{url('roles/create')}}" class="btn btn-sm btn-outline-primary float-end" >Add Role </a>
+                                <button href="" class="btn btn-sm btn-outline-primary float-end"
+                               onclick="toggleForm()">Add Role </button>
                             </h4>
                         </div>
+
+                        <div id="myDiv" class="container" style="display: none">
+                            <form action="{{url('roles')}}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="">Role Name</label>
+                                    <input type="text" name="name" class="form-control" autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-sm btn-warning text-white" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+
                         <div class="card-body">
                             <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                 <thead>

@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title>TPP Dashboard</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -57,15 +57,24 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Category</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
+                        <li><i class="fa fa-table"></i><a href="{{route('categoryIndex')}}">Basic Table</a></li>
                         <li><i class="fa fa-table"></i><a href="{{route('categoryIndex')}}">Category List</a></li>
                     </ul>
                 </li>
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Product</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-th"></i><a href="{{route('home')}}">Basic Form</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="{{route('productIndex')}}">Basic Form</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('productIndex')}}">Product List</a></li>
+                    </ul>
+                </li>
+
+                <h3 class="menu-title">Roles And Permissions</h3><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Role Management</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-th"></i><a href="{{route('roles.index')}}">Roles</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="{{route('permissions.index')}}">Permissions</a></li>
                     </ul>
                 </li>
             </ul>

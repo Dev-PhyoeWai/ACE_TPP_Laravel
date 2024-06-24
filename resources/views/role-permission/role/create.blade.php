@@ -1,6 +1,7 @@
 
 
 <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-13">
@@ -11,16 +12,18 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{url('roles')}}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="">Role Name</label>
-                            <input type="text" name="name" class="form-control" autocomplete="off"/>
-                        </div>
-                        <div class="mb-3">
-                            <button class="btn btn-sm btn-warning text-white" type="submit">Save</button>
-                        </div>
-                    </form>
+
+                        <form action="{{url('roles')}}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="">Role Name</label>
+                                <input type="text" name="name" class="form-control" autocomplete="off"/>
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-sm btn-warning text-white" type="submit">Save</button>
+                            </div>
+                        </form>
+
                 </div>
             </div>
         </div>
