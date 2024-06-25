@@ -36,6 +36,7 @@ Route::resource('articles', ArticleController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/master', [App\Http\Controllers\HomeController::class, 'mIndex']);
 
 Route::get('/list',fn()=>view('list'))->name('list');
 
