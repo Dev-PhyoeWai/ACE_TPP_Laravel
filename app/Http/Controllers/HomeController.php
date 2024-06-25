@@ -28,4 +28,7 @@ class HomeController extends Controller
 //        dd($user);
         return view('index');
     }
+    public function mIndex(){
+        return view('layouts.master');
+    }
 }

@@ -24,20 +24,28 @@
                                     {{$message}}
                                 </span>
                             @enderror
-                            <label for="">Permissions</label>
-                            <div class="row  mt-3 mb-2">
-                                @foreach($permissions as $permission)
-                                    <div class="col-md-2">
-                                        <label>
-                                            <input type="checkbox" value="{{$permission->name}}"
-                                                   name="permission[]" autocomplete="off"
-                                                   {{in_array($permission->id,$rolePermissions) ? 'checked' : ''}}
-                                            />
+                            <label for="" class="mb-2">Permissions</label>
+
+{{--                            <select class="form-select" size="3" aria-label="size 3 select example">--}}
+{{--                                <option selected>Open this select menu</option>--}}
+{{--                                <option value="1">One</option>--}}
+{{--                                <option value="2">Two</option>--}}
+{{--                                <option value="3">Three</option>--}}
+{{--                            </select>--}}
+
+
+                                <select class="form-select" size="3" aria-label="size 3 select example">
+                                    @foreach($permissions as $permission)
+                                        <option value="name">
+{{--                                            <input type="checkbox" value="{{$permission->name}}"--}}
+{{--                                                   name="permission[]" autocomplete="off"--}}
+{{--                                                {{in_array($permission->id,$rolePermissions) ? 'checked' : ''}}--}}
+{{--                                            />--}}
                                             {{$permission->name}}
-                                        </label>
-                                    </div>
-                                @endforeach
-                            </div>
+                                        </option>
+                                    @endforeach
+                                </select>
+
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-sm btn-warning text-white" type="submit">Update</button>
