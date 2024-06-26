@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 // '/' => home
 
@@ -48,3 +51,10 @@ Route::get('roles/{roleId}/delete', [RoleController::class,'destroy']);
 
 Route::get('roles/{roleId}/give-permissions', [RoleController::class,'addPermissionToRole']);
 Route::put('roles/{roleId}/give-permissions', [RoleController::class,'givePermissionToRole']);
+
+Route::resource('users', UserController::class);
+Route::get('users/{userID}/delete', [UserController::class,'destroy']);
+
+// students and courses
+Route::resource('students', StudentController::class);
+Route::resource('courses', CourseController::class);

@@ -1,5 +1,4 @@
 
-
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -11,12 +10,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@yield('title')</title>
+    <title>TPP Dashboard</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
+
 
     <link rel="stylesheet" href="{{asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/font-awesome/css/font-awesome.min.css')}}">
@@ -25,16 +25,28 @@
     <link rel="stylesheet" href="{{asset('vendors/selectFX/css/cs-skin-elastic.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/jqvmap/dist/jqvmap.min.css')}}">
 
+    <link rel="stylesheet" href="{{asset('vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}">
 
     <link rel="stylesheet" href="assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
+    <script>
+        function toggleForm() {
+            var x = document.getElementById("myDiv");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+
+                x.style.display = "none";
+            }
+        }
+
+    </script>
 </head>
 
 <body>
-
-
 <!-- Left Panel -->
 
 <aside id="left-panel" class="left-panel">
@@ -50,11 +62,12 @@
 
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li>
                     <a href="{{route('home')}}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
-                <h3 class="menu-title">Ui Element</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
+                <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
+
+                <li class="menu-item-has-children active dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Category</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-table"></i><a href="{{route('categoryIndex')}}">Basic Table</a></li>
@@ -75,18 +88,10 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('roles.index')}}">Roles</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('permissions.index')}}">Permissions</a></li>
-                        <li><i class="menu-icon fa fa-th"></i><a href="">Users</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="{{route('users.index')}}">Users</a></li>
                     </ul>
                 </li>
 
-                <h3 class="menu-title">Students And Courses</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Student Management</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-th"></i><a href="">Students Data</a></li>
-{{--                        <li><i class="menu-icon fa fa-th"></i><a href="{{route('permissions.index')}}">Permissions</a></li>--}}
-                    </ul>
-                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
@@ -195,15 +200,7 @@
 
                         <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
-                        <a class="nav-link" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                        <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
                     </div>
                 </div>
 
@@ -245,19 +242,110 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Table</a></li>
+                        <li class="active">Data table</li>
                     </ol>
                 </div>
             </div>
         </div>
     </div>
-    <!-- .content -->
-    <div class="container">
-        @yield('content')
-    </div>
+    @include('role-permission.nav-links')
+    <div class="content mt-3">
+        <div class="animated fadeIn">
+            <div class="row">
+
+                <div class="col-md-12">
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show">
+                            {{session('success')}}
+                        </div>
+                    @endif
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>User
+                                <button href="" class="btn btn-sm btn-outline-primary float-end"
+                                        onclick="toggleForm()">Add User </button>
+                            </h4>
+                        </div>
+
+                        <div id="myDiv" class="container" style="display: none">
+                            <form action="{{url('users')}}" method="POST">
+                                @csrf
+
+                                <div class="mb-3">
+                                    <label for="">User Name</label>
+                                    <input type="text" name="name" class="form-control" autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Email</label>
+                                    <input type="email" name="email" class="form-control" autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Password</label>
+                                    <input type="password" name="password" class="form-control" autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Roles</label>
+                                    <select name="roles[]" class="form-control" multiple>
+                                        <option value="">Select Role</option>
+                                        @foreach($roles as $role)
+                                            <option value="{{$role}}">{{$role}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-sm btn-warning text-white" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card-body">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                <thead>
+                                <tr class="text-center">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Roles</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($users as $user)
+                                    <tr>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>
+                                            @if(!empty($user->getRoleNames()))
+                                                @foreach($user->getRoleNames() as $rolename)
+                                                    <label class="badge bg-info text-white">{{$rolename}}</label>
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{url('users/'.$user->id.'/edit')}}" class="btn btn-sm btn-outline-warning mx-3" >Edit</a>
+                                            <a href="{{url('users/'.$user->id.'/delete')}}" class="btn btn-sm btn-outline-danger" >Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div><!-- .animated -->
+    </div><!-- .content -->
+
+
 </div><!-- /#right-panel -->
 
 <!-- Right Panel -->
+
 
 <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{asset('vendors/popper.js/dist/umd/popper.min.js')}}"></script>
@@ -265,30 +353,18 @@
 <script src="{{asset('assets/js/main.js')}}"></script>
 
 
-<script src="{{asset('vendors/chart.js/dist/Chart.bundle.min.js')}}"></script>
-<script src="{{asset('assets/js/dashboard.js')}}"></script>
-<script src="{{asset('assets/js/widgets.js')}}"></script>
-<script src="{{asset('vendors/jqvmap/dist/jquery.vmap.min.js')}}"></script>
-<script src="{{asset('vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
-<script src="{{asset('vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
-<script>
-    (function($) {
-        "use strict";
+<script src="{{asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('vendors/jszip/dist/jszip.min.js')}}"></script>
+<script src="{{asset('vendors/pdfmake/build/pdfmake.min.js')}}"></script>
+<script src="{{asset('vendors/pdfmake/build/vfs_fonts.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('assets/js/init-scripts/data-table/datatables-init.js')}}"></script>
 
-        jQuery('#vmap').vectorMap({
-            map: 'world_en',
-            backgroundColor: null,
-            color: '#ffffff',
-            hoverOpacity: 0.7,
-            selectedColor: '#1de9b6',
-            enableZoom: true,
-            showTooltip: true,
-            values: sample_data,
-            scaleColors: ['#1de9b6', '#03a9f5'],
-            normalizeFunction: 'polynomial'
-        });
-    })(jQuery);
-</script>
 
 </body>
 

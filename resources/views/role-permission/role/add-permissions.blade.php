@@ -34,16 +34,15 @@
 {{--                            </select>--}}
 
 
-                                <select class="form-select" size="3" aria-label="size 3 select example">
-                                    @foreach($permissions as $permission)
+                                <select name="permission[]" multiple class="form-select" size="3" aria-label="size 3 select example">
+
                                         <option value="name">
-{{--                                            <input type="checkbox" value="{{$permission->name}}"--}}
-{{--                                                   name="permission[]" autocomplete="off"--}}
-{{--                                                {{in_array($permission->id,$rolePermissions) ? 'checked' : ''}}--}}
-{{--                                            />--}}
-                                            {{$permission->name}}
+                                            @foreach($permissions as $permission)
+                                                <option value="{{$permission}}"  {{in_array($permission->id,$rolePermissions) ? 'selected' : ''}}>
+                                                    {{$permission->name}}
+                                                </option>
+                                            @endforeach
                                         </option>
-                                    @endforeach
                                 </select>
 
                         </div>
