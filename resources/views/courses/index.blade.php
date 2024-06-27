@@ -1,5 +1,4 @@
 
-<!-- resources/views/courses/index.blade.php -->
 @extends('layouts.app')
 
 @section('content')

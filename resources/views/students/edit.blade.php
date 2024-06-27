@@ -1,4 +1,4 @@
-<!-- resources/views/students/edit.blade.php -->
+
 @extends('layouts.app')
 
 @section('content')
@@ -24,7 +24,7 @@
                 <input type="text" class="form-control" id="degree" name="degree" value="{{ $student->degree }}" required>
             </div>
 
-            <!-- resources/views/students/edit.blade.php -->
+           
             <div class="form-group">
                 <label for="is_new_student">Is New Student</label>
                 <input type="hidden" name="is_new_student" value="0">
@@ -39,12 +39,7 @@
                     @endforeach
                 </select>
             </div>
-{{--            @foreach($courses as $course)--}}
-{{--                <div class="form-group">--}}
-{{--                    <label for="extra_field_{{ $course->id }}">Extra Field for {{ $course->name }}</label>--}}
-{{--                    <input type="text" class="form-control" id="extra_field_{{ $course->id }}" name="extra_field[{{ $course->id }}]" value="{{ old('extra_field.' . $course->id, optional($student->courses->find($course->id))->pivot->extra_field) }}">--}}
-{{--                </div>--}}
-{{--            @endforeach--}}
+
             <button type="submit" class="btn btn-primary">Update Student</button>
         </form>
     </div>

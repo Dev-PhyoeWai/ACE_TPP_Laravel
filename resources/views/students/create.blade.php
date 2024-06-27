@@ -1,4 +1,4 @@
-<!-- resources/views/students/create.blade.php -->
+
 @extends('layouts.app')
 
 @section('content')
@@ -23,7 +23,6 @@
                 <input type="text" class="form-control" id="degree" name="degree" required>
             </div>
 
-            <!-- resources/views/students/create.blade.php -->
             <div class="form-group">
                 <label for="is_new_student">Is New Student</label>
                 <input type="hidden" name="is_new_student" value="0">

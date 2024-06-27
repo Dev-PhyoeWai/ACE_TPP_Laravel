@@ -8,15 +8,15 @@ class CreateStudentsTable extends Migration
 {
     public function up()
     {
-    Schema::create('students', function (Blueprint $table) {
-        $table->id();
-        $table->string('name');
-        $table->integer('age');
-        $table->string('phone');
-        $table->string('degree');
-        $table->boolean('is_new_student')->default(true);
-        $table->timestamps();
-    });
+        Schema::create('students', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('age');
+            $table->string('phone');
+            $table->string('degree');
+            $table->boolean('is_new_student')->default(true);
+            $table->timestamps();
+        });
     }
 
     public function down()

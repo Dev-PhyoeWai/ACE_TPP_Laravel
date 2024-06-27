@@ -37,7 +37,7 @@ class StudentController extends Controller
             'age' => $request->age,
             'phone' => $request->phone,
             'degree' => $request->degree,
-            'is_new_student' => $request->boolean('is_new_student'), // Use boolean method to convert value
+            'is_new_student' => $request->boolean('is_new_student'),
         ]);
 
         if ($request->courses) {
