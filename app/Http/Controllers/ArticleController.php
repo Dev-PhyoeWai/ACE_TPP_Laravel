@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Repositories\Interfaces\ArticleRepositoryInterface;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function __construct()
+    protected $articleRepository;
+    public function __construct(ArticleRepositoryInterface $articleRepository)
     {
         $this->middleware('auth');
+        $this->articleRepository = $articleRepository;
     }
     public function index()
     {
-        $article = Article::all();
+        $article = $this->articleRepository->getAll();
         return view('articles.index', compact('article'));
     }
     public function create()
@@ -22,7 +25,9 @@ class ArticleController extends Controller
     }
     public function store(Request $request)
     {
-        Article::create([
+        //        Article::create([
+        //        ]);
+        $this->articleRepository->create([
             'name' => $request->name,
             'age' => $request->age,
             'city' => $request->city,
@@ -31,27 +36,26 @@ class ArticleController extends Controller
     }
 
     public function edit($id){
-        $data = Article::where('id', $id)->first();
+        // $data = Article::where('id', $id)->first();
+        $data = $this->articleRepository->getId($id);
         return view('articles.edit', compact('data'));
     }
 
     public function update(Request $request,$id){
-        ## call null value
-        ## $data = Article::where('id', $request->id)->first();
-        /*
-         *      Error handling
-         */
-        $data = Article::findOrFail($id);
-        $data->update([
+        //  $data = Article::findOrFail($id);
+        //  $data->update([
+        //  ]);
+        $this->articleRepository->update([
             'name' => $request->name,
             'age' => $request->age,
             'city' => $request->city,
-        ]);
+        ], $id);
         return redirect()->route('articles.index')->with('success', 'Post updated successfully.');
     }
-    public function destroy(Article $article)
+    public function destroy($id)
     {
-        $article->delete();
+        // $article->delete();
+        $this->articleRepository->delete($id);
         return redirect()->route('articles.index')->with('success', 'Post deleted successfully.');
     }
 }

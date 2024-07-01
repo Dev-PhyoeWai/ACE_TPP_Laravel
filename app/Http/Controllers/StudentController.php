@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
-use App\Models\Course;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    protected $studentRepository;
+    public function __construct(StudentRepository $studentRepository){
+        $this->studentRepository = $studentRepository;
+    }
     public function index()
     {
-        $students = Student::with('courses')->get();
+        $students = $this->studentRepository->getAll();
         return view('students.index', compact('students'));
     }
 
     public function create()
     {
-        $courses = Course::all();
+        $courses = $this->studentRepository->create();
         return view('students.create', compact('courses'));
     }
 
@@ -31,34 +34,18 @@ class StudentController extends Controller
             'courses' => 'array',
             'extra_field' => 'array',
         ]);
-
-        $student = Student::create([
-            'name' => $request->name,
-            'age' => $request->age,
-            'phone' => $request->phone,
-            'degree' => $request->degree,
-            'is_new_student' => $request->boolean('is_new_student'),
-        ]);
-
-        if ($request->courses) {
-            $syncData = [];
-            foreach ($request->courses as $courseId) {
-                $syncData[$courseId] = ['extra_field' => $request->extra_field[$courseId] ?? null];
-            }
-            $student->courses()->sync($syncData);
-        }
+        $data = $request->all();
+        $data['is_new_student'] = $request->boolean('is_new_student');
+        $this->studentRepository->store($data);
 
         return redirect()->route('students.index');
     }
-
-
-    public function edit(Student $student)
+    public function edit($id)
     {
-        $courses = Course::all();
-        return view('students.edit', compact('student', 'courses'));
+        $data = $this->studentRepository->edit($id);
+        return view('students.edit', $data);
     }
-
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
@@ -70,22 +57,16 @@ class StudentController extends Controller
             'extra_field' => 'array',
         ]);
 
-        $student->update($request->all());
-
-        if ($request->courses) {
-            $syncData = [];
-            foreach ($request->courses as $courseId) {
-                $syncData[$courseId] = ['extra_field' => $request->extra_field[$courseId] ?? null];
-            }
-            $student->courses()->sync($syncData);
-        }
+        $data = $request->all();
+        $data['is_new_student'] = $request->boolean('is_new_student');
+        $this->studentRepository->update($id, $data);
 
         return redirect()->route('students.index');
     }
 
-    public function destroy(Student $student)
+    public function destroy( $id)
     {
-        $student->delete();
+        $this->studentRepository->delete($id);
         return redirect()->route('students.index');
     }
 }

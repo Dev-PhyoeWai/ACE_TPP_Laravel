@@ -280,7 +280,6 @@
                                                 <div class="col-4">
                                                     <form action="{{route('productDelete', $p->id)}}" method="post">
                                                         @csrf
-                                                        @method('DELETE')
                                                         <button class="btn btn-sm btn-danger">Delete</button>
                                                     </form>
                                                 </div>
