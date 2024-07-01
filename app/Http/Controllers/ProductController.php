@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
-use App\Models\Product;
-use App\Models\ProductImage;
+
+use App\Repositories\Interfaces\ProductRepositoryInterface;
 use Illuminate\Http\Request;
+
 class ProductController extends Controller
 {
-    public function __construct()
+    protected $productRepository;
+    public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->middleware('auth');
+        $this->productRepository = $productRepository;
     }
     public function index()
     {
-        $product_item = Product::with('images')->get();
+        $product_item = $this->productRepository->getAll();
         return view('product.index', compact('product_item'));
     }
     public function create()
@@ -22,27 +25,17 @@ class ProductController extends Controller
         return view('product.create');
     }
 
-    public function store(ProductRequest $request) // ProductRequest $request
+    public function store(ProductRequest $request)
     {
-        $product = Product::create($request->all());
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $filename = time() . '_' . $image->getClientOriginalName();
-                $path = $image->move(public_path('uploads'), $filename);
-                ProductImage::create([
-                    'product_id' => $product->id,
-                    'image_path' => $filename,
-                ]);
-            }
-        }
+        $data = $request->all();
+        $data['images'] = $request->file('images');
+        $this->productRepository->store($data);
 
         return redirect()->route('productIndex');
     }
     public function edit($id)
     {
-        $data = Product::with('images')->find($id);
-
+        $data = $this->productRepository->getById($id);
         if (!$data) {
             return redirect()->route('productIndex')->withErrors('Product not found.');
         }
@@ -52,43 +45,16 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
-        $product->update($request->all());
-
-        if ($request->hasFile('images')) {
-            foreach ($product->images as $image) {
-                $imagePath = public_path($image->image_path);
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
-                }
-                $image->delete();
-            }
-
-            foreach ($request->file('images') as $image) {
-                $filename = time() . '_' . $image->getClientOriginalName();
-                $path = $image->move(public_path('uploads'), $filename);
-                ProductImage::create([
-                    'product_id' => $product->id,
-                    'image_path' => $filename,
-                ]);
-            }
-        }
+        $data = $request->all();
+        $data['images'] = $request->file('images');
+        $this->productRepository->update($id, $data);
 
         return redirect()->route('productIndex');
     }
 
-    ##-> FeatureDay05 dev_phyoewai
-    public function destroy(Product $productdel)
+    public function destroy($id)
     {
-        foreach ($productdel->images as $image) {
-            $imagePath = public_path($image->image_path);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
-            $image->delete();
-        }
-
-        $productdel->delete();
+        $this->productRepository->delete($id);
         return redirect()->route('productIndex');
     }
 }

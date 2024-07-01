@@ -75,6 +75,7 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('roles.index')}}">Roles</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('permissions.index')}}">Permissions</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="{{route('users.index')}}">Users</a></li>
                     </ul>
                 </li>
             </ul>
@@ -279,7 +280,6 @@
                                                 <div class="col-4">
                                                     <form action="{{route('productDelete', $p->id)}}" method="post">
                                                         @csrf
-                                                        @method('DELETE')
                                                         <button class="btn btn-sm btn-danger">Delete</button>
                                                     </form>
                                                 </div>

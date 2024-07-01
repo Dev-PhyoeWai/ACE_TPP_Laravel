@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>TPP Dashboard</title>
+    <title>@yield('title')</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -75,6 +75,16 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('roles.index')}}">Roles</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('permissions.index')}}">Permissions</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="">Users</a></li>
+                    </ul>
+                </li>
+
+                <h3 class="menu-title">Students And Courses</h3><!-- /.menu-title -->
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Student Management</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-th"></i><a href="">Students Data</a></li>
+{{--                        <li><i class="menu-icon fa fa-th"></i><a href="{{route('permissions.index')}}">Permissions</a></li>--}}
                     </ul>
                 </li>
             </ul>
@@ -241,19 +251,10 @@
             </div>
         </div>
     </div>
-
-    <div class="content mt-3">
-
-        <div class="col-sm-12">
-            <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-
-    </div> <!-- .content -->
+    <!-- .content -->
+    <div class="container">
+        @yield('content')
+    </div>
 </div><!-- /#right-panel -->
 
 <!-- Right Panel -->
@@ -292,22 +293,3 @@
 </body>
 
 </html>
-
-{{--<div class="container text-center">--}}
-{{--    <h1 class="mb-4 mt-4">Burmese Laravel Developer</h1>--}}
-{{--    <div class="row">--}}
-{{--        <div class="col-4 mb-4">--}}
-{{--            @can('dashboard')--}}
-{{--                <a href="{{route('categoryIndex')}}" class="btn btn-sm btn-info text-white">Category</a>--}}
-{{--            @endcan--}}
-{{--        </div>--}}
-{{--        <div class="col-4">--}}
-{{--            @can('product_listing')--}}
-{{--                <a href="{{route('productIndex')}}" class="btn btn-sm btn-info text-white">Product</a>--}}
-{{--            @endcan--}}
-{{--        </div>--}}
-{{--        <div class="col-4">--}}
-{{--            <a href="{{route('articles.index')}}" class="btn btn-sm btn-info text-white">Article</a>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}

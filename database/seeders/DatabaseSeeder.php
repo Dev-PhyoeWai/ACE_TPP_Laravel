@@ -12,9 +12,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
 //            AdminUserSeeder::class,
-            PermissionTableSeeder::class,
-            RoleTableSeeder::class,
-            RolePermissionTableSeeder::class,
+//            PermissionTableSeeder::class,
+//            RoleTableSeeder::class,
+//            RolePermissionTableSeeder::class,
+            StudentTableSeeder::class,
+            CourseTableSeeder::class,
         ]);
     }
 }

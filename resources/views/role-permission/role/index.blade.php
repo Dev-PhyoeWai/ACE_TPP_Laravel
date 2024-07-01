@@ -88,6 +88,7 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('roles.index')}}">Roles</a></li>
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('permissions.index')}}">Permissions</a></li>
+                        <li><i class="menu-icon fa fa-th"></i><a href="{{route('users.index')}}">Users</a></li>
                     </ul>
                 </li>
 
